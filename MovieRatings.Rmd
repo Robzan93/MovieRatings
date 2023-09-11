@@ -1,0 +1,19 @@
+library(RSQLite)
+
+# Connect to the SQLite database
+con <- dbConnect(SQLite(), dbname = "movie_ratings.db")
+
+# Define your SQL query to retrieve all data from the 'ratings' table
+query <- "SELECT * FROM ratings"
+
+# Execute the query and store the results in an R data frame
+movie_ratings <- dbGetQuery(con, query)
+
+# Close the database connection
+dbDisconnect(con)
+
+# Calculate the mean rating
+mean_rating <- mean(movie_ratings$rating)
+
+# Create a histogram of ratings
+hist(movie_ratings$rating)
